@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1233F5C627C925E100E90FCF /* ShelvesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1233F5C527C925E100E90FCF /* ShelvesView.swift */; };
+		1233F5C827C9285500E90FCF /* ShelfTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1233F5C727C9285500E90FCF /* ShelfTableViewCell.swift */; };
 		12F354F5275228310091057B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12F354F4275228310091057B /* AppDelegate.swift */; };
 		12F354F7275228310091057B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12F354F6275228310091057B /* SceneDelegate.swift */; };
 		12F354F9275228310091057B /* ShelvesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12F354F8275228310091057B /* ShelvesViewController.swift */; };
@@ -18,6 +20,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1233F5C527C925E100E90FCF /* ShelvesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShelvesView.swift; sourceTree = "<group>"; };
+		1233F5C727C9285500E90FCF /* ShelfTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShelfTableViewCell.swift; sourceTree = "<group>"; };
 		12F354F1275228310091057B /* Shelves.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Shelves.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		12F354F4275228310091057B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		12F354F6275228310091057B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -41,6 +45,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1233F5C327C925B100E90FCF /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				12F35508275229A80091057B /* Shelf */,
+				1233F5C527C925E100E90FCF /* ShelvesView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		1233F5C427C925BF00E90FCF /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				12F354F8275228310091057B /* ShelvesViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
 		12F354E8275228310091057B = {
 			isa = PBXGroup;
 			children = (
@@ -60,10 +81,10 @@
 		12F354F3275228310091057B /* Shelves */ = {
 			isa = PBXGroup;
 			children = (
-				12F35508275229A80091057B /* Shelf */,
+				1233F5C427C925BF00E90FCF /* Controllers */,
+				1233F5C327C925B100E90FCF /* Views */,
 				12F354F4275228310091057B /* AppDelegate.swift */,
 				12F354F6275228310091057B /* SceneDelegate.swift */,
-				12F354F8275228310091057B /* ShelvesViewController.swift */,
 				12F3550B27522E760091057B /* UIViewExtension.swift */,
 				12F354FD275228330091057B /* Assets.xcassets */,
 				12F354FF275228330091057B /* LaunchScreen.storyboard */,
@@ -77,6 +98,7 @@
 			children = (
 				12F35509275229D10091057B /* ShelfView.swift */,
 				12F3550D275236F00091057B /* NotebookCell.swift */,
+				1233F5C727C9285500E90FCF /* ShelfTableViewCell.swift */,
 			);
 			path = Shelf;
 			sourceTree = "<group>";
@@ -150,10 +172,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1233F5C827C9285500E90FCF /* ShelfTableViewCell.swift in Sources */,
 				12F3550E275236F00091057B /* NotebookCell.swift in Sources */,
 				12F3550C27522E760091057B /* UIViewExtension.swift in Sources */,
 				12F354F9275228310091057B /* ShelvesViewController.swift in Sources */,
 				12F354F5275228310091057B /* AppDelegate.swift in Sources */,
+				1233F5C627C925E100E90FCF /* ShelvesView.swift in Sources */,
 				12F354F7275228310091057B /* SceneDelegate.swift in Sources */,
 				12F3550A275229D10091057B /* ShelfView.swift in Sources */,
 			);
