@@ -13,6 +13,8 @@ class ShelfView: UIView {
     var notebooksCollection: UICollectionView?
     var separator: UIView?
     
+    var router: ViewControllerRouter?
+    
     // Setup collection view for notebooks.
     func setupCollectionView() {
         let layoutFlow = UICollectionViewFlowLayout()
@@ -55,8 +57,13 @@ class ShelfView: UIView {
         setupCollectionView()
     }
     
+    func setupRouter(router: ViewControllerRouter) {
+        self.router = router
+    }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
+        isUserInteractionEnabled = true
         setupShelfUI()
     }
     
@@ -76,6 +83,7 @@ extension ShelfView: UICollectionViewDelegate, UICollectionViewDataSource {
             withReuseIdentifier: "notebookCell",
             for: indexPath
         ) as? NotebookCell
+        cell?.setupRouter(router: router!)
         return cell ?? UICollectionViewCell()
     }
     

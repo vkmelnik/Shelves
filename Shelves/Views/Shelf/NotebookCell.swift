@@ -10,14 +10,17 @@ import UIKit
 // Collection view cell that displays a notebook and opens it on tap.
 class NotebookCell: UICollectionViewCell {
     
-    var notebookIcon: UIView?
+    var notebookIcon: UIButton?
     var title: UITextField?
     private var backColor: CGColor?
     var bookColor: CGColor? = CGColor(red: 0.4, green: 0.08, blue: 0, alpha: 1)
     
+    var router: ViewControllerRouter?
+    
     // Draw notebook icon.
     func drawNotebook(width: Int = 90, height: Int = 128) {
-        let notebookIcon = UIView(frame: CGRect(x: 0, y: 0, width: width, height: height))
+        let notebookIcon = UIButton(frame: CGRect(x: 0, y: 0, width: width, height: height))
+        notebookIcon.addTarget(self, action: #selector(onButtonPressed), for: .touchUpInside)
         let backLayer = CALayer()
         backLayer.frame = CGRect(x: 0, y: 0, width: width, height: height)
         backLayer.cornerRadius = 12
@@ -71,10 +74,21 @@ class NotebookCell: UICollectionViewCell {
         self.title = title
     }
     
+    public func setupRouter(router: ViewControllerRouter) {
+        self.router = router
+    }
+    
+    @objc
+    func onButtonPressed() {
+        let page = PageViewController()
+        router?.pushViewController(controller: page)
+    }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setBackColor()
         drawNotebook()
+        isUserInteractionEnabled = true
         addTitle("New book")
     }
     

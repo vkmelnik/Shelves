@@ -19,7 +19,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         let window = UIWindow(windowScene: windowScene)
         
-        window.rootViewController = ShelvesViewController()
+        let navigationController = UINavigationController()
+        navigationController.viewControllers = [ShelvesViewController()]
+        window.rootViewController = navigationController
         self.window = window
         window.makeKeyAndVisible()
     }
