@@ -13,6 +13,8 @@ import UIKit
 class ShelvesViewController: UIViewController {
     
     var shelvesView: ShelvesView?
+    var notebookController: NotebookController?
+    let pageViewController = UIPageViewController(transitionStyle: .pageCurl, navigationOrientation: .horizontal, options: nil)
     
     func setupView() {
         let shelvesView = ShelvesView()
@@ -57,8 +59,14 @@ extension ShelvesViewController: UITableViewDelegate, UITableViewDataSource {
 }
 
 extension ShelvesViewController: ViewControllerRouter {
-    func pushViewController(controller: UIViewController) {
-        self.navigationController?.pushViewController(controller, animated: false)
+    func openNotebook(notebook: Notebook) {
+        let dataSource = NotebookController(notebook: notebook)
+        pageViewController.dataSource = dataSource
+        pageViewController.delegate = dataSource
+        self.notebookController = dataSource
+        let controller = PageViewController(pageIndex: 0, html: notebook.pages[0])
+        pageViewController.setViewControllers([controller], direction: .forward, animated: true, completion: nil)
+        self.navigationController?.pushViewController(pageViewController, animated: false)
     }
     
 }

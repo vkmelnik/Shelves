@@ -8,5 +8,5 @@
 import UIKit
 
 protocol ViewControllerRouter {
-    func pushViewController(controller: UIViewController)
+    func openNotebook(notebook: Notebook)
 }

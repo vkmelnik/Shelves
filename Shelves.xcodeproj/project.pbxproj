@@ -12,6 +12,8 @@
 		12C7788227D4CC9A005CCC88 /* Page.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C7788127D4CC9A005CCC88 /* Page.swift */; };
 		12C7788427D4CD50005CCC88 /* PageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C7788327D4CD50005CCC88 /* PageViewController.swift */; };
 		12C7788727D4CF7B005CCC88 /* ViewControllerRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C7788627D4CF7B005CCC88 /* ViewControllerRouter.swift */; };
+		12C7788A27D930D5005CCC88 /* Notebook.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C7788927D930D5005CCC88 /* Notebook.swift */; };
+		12C7788C27D93185005CCC88 /* NotebookController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C7788B27D93185005CCC88 /* NotebookController.swift */; };
 		12F354F5275228310091057B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12F354F4275228310091057B /* AppDelegate.swift */; };
 		12F354F7275228310091057B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12F354F6275228310091057B /* SceneDelegate.swift */; };
 		12F354F9275228310091057B /* ShelvesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12F354F8275228310091057B /* ShelvesViewController.swift */; };
@@ -30,6 +32,8 @@
 		12C7788127D4CC9A005CCC88 /* Page.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Page.swift; sourceTree = "<group>"; };
 		12C7788327D4CD50005CCC88 /* PageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageViewController.swift; sourceTree = "<group>"; };
 		12C7788627D4CF7B005CCC88 /* ViewControllerRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerRouter.swift; sourceTree = "<group>"; };
+		12C7788927D930D5005CCC88 /* Notebook.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notebook.swift; sourceTree = "<group>"; };
+		12C7788B27D93185005CCC88 /* NotebookController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotebookController.swift; sourceTree = "<group>"; };
 		12F354F1275228310091057B /* Shelves.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Shelves.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		12F354F4275228310091057B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		12F354F6275228310091057B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -71,6 +75,7 @@
 			children = (
 				12F354F8275228310091057B /* ShelvesViewController.swift */,
 				12C7788327D4CD50005CCC88 /* PageViewController.swift */,
+				12C7788B27D93185005CCC88 /* NotebookController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -89,6 +94,14 @@
 				12C7788627D4CF7B005CCC88 /* ViewControllerRouter.swift */,
 			);
 			path = Routers;
+			sourceTree = "<group>";
+		};
+		12C7788827D930B4005CCC88 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				12C7788927D930D5005CCC88 /* Notebook.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		12F354E8275228310091057B = {
@@ -112,6 +125,7 @@
 		12F354F3275228310091057B /* Shelves */ = {
 			isa = PBXGroup;
 			children = (
+				12C7788827D930B4005CCC88 /* Models */,
 				12C7788527D4CF61005CCC88 /* Routers */,
 				1233F5C427C925BF00E90FCF /* Controllers */,
 				1233F5C327C925B100E90FCF /* Views */,
@@ -272,9 +286,11 @@
 				12F354F9275228310091057B /* ShelvesViewController.swift in Sources */,
 				12F354F5275228310091057B /* AppDelegate.swift in Sources */,
 				12C7788227D4CC9A005CCC88 /* Page.swift in Sources */,
+				12C7788C27D93185005CCC88 /* NotebookController.swift in Sources */,
 				12C7788727D4CF7B005CCC88 /* ViewControllerRouter.swift in Sources */,
 				1233F5C627C925E100E90FCF /* ShelvesView.swift in Sources */,
 				12F354F7275228310091057B /* SceneDelegate.swift in Sources */,
+				12C7788A27D930D5005CCC88 /* Notebook.swift in Sources */,
 				12F3550A275229D10091057B /* ShelfView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

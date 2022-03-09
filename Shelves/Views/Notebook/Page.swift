@@ -14,10 +14,21 @@ class Page: UIView {
     
     func setupUI() {
         let editor = RichEditorView(frame: self.bounds)
-        editor.html = "<h1>My Awesome Editor</h1>Now I am editing in <em>style.</em>"
+        editor.html = "<style>body {background-color: black; color: white; }h1 {background-color: black; color: white; }p {background-color: black; color: white; }</style><body><h1>Заголовок</h1><p> Текст</p></body>"
         self.addSubview(editor)
-        editor.pin(to: self)
+        editor.pinLeft(to: self.leadingAnchor, 5)
+        editor.pinRight(to: self.trailingAnchor, 5)
+        editor.pinBottom(to: self.safeAreaLayoutGuide.bottomAnchor, 5)
+        editor.pinTop(to: self.safeAreaLayoutGuide.topAnchor, 5)
+        editor.backgroundColor = .black
+        editor.webView.backgroundColor = .black
+        editor.setTextColor(.white)
+              
         self.editor = editor
+    }
+    
+    public func setHtml(html: String) {
+        editor?.html = html
     }
 
     override init(frame: CGRect) {
