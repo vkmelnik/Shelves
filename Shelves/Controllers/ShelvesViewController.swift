@@ -12,6 +12,8 @@ import UIKit
  */
 class ShelvesViewController: UIViewController {
     
+    var notebooks: [Notebook] = []
+    var shelvesCount = 1
     var shelvesView: ShelvesView?
     var notebookController: NotebookController?
     let pageViewController = UIPageViewController(transitionStyle: .pageCurl, navigationOrientation: .horizontal, options: nil)
@@ -32,10 +34,33 @@ class ShelvesViewController: UIViewController {
         shelvesView?.tableView?.dataSource = self
         shelvesView?.tableView?.register(ShelfTableViewCell.self, forCellReuseIdentifier: "ShelfTableViewCell")
     }
+    
+    func loadNotebooks() {
+        let fileManager = FileManager.default
+        if let documentDirectory = FileManager.default.urls(for: .documentDirectory,
+                                                            in: .userDomainMask).first {
+            let enumerator:FileManager.DirectoryEnumerator = fileManager.enumerator(atPath: documentDirectory.path)!
+            while let element = enumerator.nextObject() as? String {
+                do {
+                    if element.hasSuffix("shelves") { // checks the extension
+                        let jsonString = try String(contentsOf: documentDirectory.appendingPathComponent(element), encoding: .utf8)
+                        let notebook = try JSONDecoder().decode(Notebook.self, from: jsonString.data(using: .utf8)!)
+                            notebooks.append(notebook)
+                        if (notebook.shelf + 2 > shelvesCount) {
+                            shelvesCount = notebook.shelf + 2
+                        }
+                    }
+                } catch {
+                    print("Can't read " + element + " " + error.localizedDescription)
+                }
+            }
+        }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        loadNotebooks()
         setupView()
         setupTableView()
     }
@@ -44,11 +69,16 @@ class ShelvesViewController: UIViewController {
 
 extension ShelvesViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
+        return shelvesCount
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = ShelfTableViewCell()
+        for notebook in notebooks {
+            if (notebook.shelf == indexPath.item) {
+                cell.putNotebook(notebook: notebook)
+            }
+        }
         cell.setupRouter(router: self)
         return cell
     }

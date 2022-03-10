@@ -12,6 +12,7 @@ class ShelfView: UIView {
     
     var notebooksCollection: UICollectionView?
     var separator: UIView?
+    var notebooks: [Notebook] = []
     
     var router: ViewControllerRouter?
     
@@ -61,6 +62,10 @@ class ShelfView: UIView {
         self.router = router
     }
     
+    public func putNotebook(notebook: Notebook) {
+        notebooks.append(notebook)
+    }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         isUserInteractionEnabled = true
@@ -75,7 +80,7 @@ class ShelfView: UIView {
 
 extension ShelfView: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        5
+        notebooks.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -83,6 +88,7 @@ extension ShelfView: UICollectionViewDelegate, UICollectionViewDataSource {
             withReuseIdentifier: "notebookCell",
             for: indexPath
         ) as? NotebookCell
+        cell?.setupNotebook(notebook: notebooks[indexPath.item])
         cell?.setupRouter(router: router!)
         return cell ?? UICollectionViewCell()
     }

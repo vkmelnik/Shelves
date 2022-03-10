@@ -10,6 +10,7 @@ import UIKit
 // Collection view cell that displays a notebook and opens it on tap.
 class NotebookCell: UICollectionViewCell {
     
+    var notebook: Notebook?
     var notebookIcon: UIButton?
     var title: UITextField?
     private var backColor: CGColor?
@@ -80,8 +81,12 @@ class NotebookCell: UICollectionViewCell {
     
     @objc
     func onButtonPressed() {
-        let notebook = Notebook()
-        router?.openNotebook(notebook: notebook)
+        router?.openNotebook(notebook: notebook!)
+    }
+    
+    func setupNotebook(notebook: Notebook) {
+        self.notebook = notebook
+        title?.text = notebook.name
     }
     
     override init(frame: CGRect) {

@@ -35,6 +35,10 @@ class ShelfTableViewCell: UITableViewCell {
         self.shelf = shelf
     }
     
+    public func putNotebook(notebook: Notebook) {
+        shelf?.putNotebook(notebook: notebook)
+    }
+    
     func setupRouter(router: ViewControllerRouter) {
         shelf?.setupRouter(router: router)
     }
