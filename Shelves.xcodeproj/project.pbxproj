@@ -10,7 +10,7 @@
 		1233F5C627C925E100E90FCF /* ShelvesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1233F5C527C925E100E90FCF /* ShelvesView.swift */; };
 		1233F5C827C9285500E90FCF /* ShelfTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1233F5C727C9285500E90FCF /* ShelfTableViewCell.swift */; };
 		12C7788227D4CC9A005CCC88 /* Page.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C7788127D4CC9A005CCC88 /* Page.swift */; };
-		12C7788427D4CD50005CCC88 /* PageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C7788327D4CD50005CCC88 /* PageViewController.swift */; };
+		12C7788427D4CD50005CCC88 /* PageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C7788327D4CD50005CCC88 /* PageController.swift */; };
 		12C7788727D4CF7B005CCC88 /* ViewControllerRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C7788627D4CF7B005CCC88 /* ViewControllerRouter.swift */; };
 		12C7788A27D930D5005CCC88 /* Notebook.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C7788927D930D5005CCC88 /* Notebook.swift */; };
 		12C7788C27D93185005CCC88 /* NotebookController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C7788B27D93185005CCC88 /* NotebookController.swift */; };
@@ -30,7 +30,7 @@
 		1233F5C527C925E100E90FCF /* ShelvesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShelvesView.swift; sourceTree = "<group>"; };
 		1233F5C727C9285500E90FCF /* ShelfTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShelfTableViewCell.swift; sourceTree = "<group>"; };
 		12C7788127D4CC9A005CCC88 /* Page.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Page.swift; sourceTree = "<group>"; };
-		12C7788327D4CD50005CCC88 /* PageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageViewController.swift; sourceTree = "<group>"; };
+		12C7788327D4CD50005CCC88 /* PageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageController.swift; sourceTree = "<group>"; };
 		12C7788627D4CF7B005CCC88 /* ViewControllerRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerRouter.swift; sourceTree = "<group>"; };
 		12C7788927D930D5005CCC88 /* Notebook.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notebook.swift; sourceTree = "<group>"; };
 		12C7788B27D93185005CCC88 /* NotebookController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotebookController.swift; sourceTree = "<group>"; };
@@ -74,7 +74,7 @@
 			isa = PBXGroup;
 			children = (
 				12F354F8275228310091057B /* ShelvesViewController.swift */,
-				12C7788327D4CD50005CCC88 /* PageViewController.swift */,
+				12C7788327D4CD50005CCC88 /* PageController.swift */,
 				12C7788B27D93185005CCC88 /* NotebookController.swift */,
 			);
 			path = Controllers;
@@ -280,7 +280,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1233F5C827C9285500E90FCF /* ShelfTableViewCell.swift in Sources */,
-				12C7788427D4CD50005CCC88 /* PageViewController.swift in Sources */,
+				12C7788427D4CD50005CCC88 /* PageController.swift in Sources */,
 				12F3550E275236F00091057B /* NotebookCell.swift in Sources */,
 				12F3550C27522E760091057B /* UIViewExtension.swift in Sources */,
 				12F354F9275228310091057B /* ShelvesViewController.swift in Sources */,

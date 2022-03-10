@@ -80,7 +80,7 @@ class NotebookCell: UICollectionViewCell {
     
     @objc
     func onButtonPressed() {
-        let notebook = Notebook(name: "Блокнот 1", pages: ["<style>body {background-color: black; color: white; }h1 {background-color: black; color: white; }p {background-color: black; color: white; }</style><body><h1>Страница 1</h1><p> Текст</p></body>"])
+        let notebook = Notebook()
         router?.openNotebook(notebook: notebook)
     }
     

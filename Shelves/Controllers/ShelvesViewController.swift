@@ -64,7 +64,7 @@ extension ShelvesViewController: ViewControllerRouter {
         pageViewController.dataSource = dataSource
         pageViewController.delegate = dataSource
         self.notebookController = dataSource
-        let controller = PageViewController(pageIndex: 0, html: notebook.pages[0])
+        let controller = PageController(pageIndex: 0, notebook: notebook)
         pageViewController.setViewControllers([controller], direction: .forward, animated: true, completion: nil)
         self.navigationController?.pushViewController(pageViewController, animated: false)
     }

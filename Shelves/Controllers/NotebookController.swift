@@ -16,10 +16,10 @@ class NotebookController: NSObject, UIPageViewControllerDelegate, UIPageViewCont
     }
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
-        if let pageViewController = viewController as? PageViewController {
+        if let pageViewController = viewController as? PageController {
             let index = pageViewController.pageIndex
             if (index > 0) {
-                let controller = PageViewController(pageIndex: index - 1, html: notebook!.pages[index - 1])
+                let controller = PageController(pageIndex: index - 1, notebook: notebook!)
                 return controller
             }
         }
@@ -27,14 +27,14 @@ class NotebookController: NSObject, UIPageViewControllerDelegate, UIPageViewCont
     }
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
-        if let pageViewController = viewController as? PageViewController {
+        if let pageViewController = viewController as? PageController {
             let index = pageViewController.pageIndex
             if (index + 1 < notebook!.pages.count) {
-                let controller = PageViewController(pageIndex: index + 1, html: notebook!.pages[index + 1])
+                let controller = PageController(pageIndex: index + 1, notebook: notebook!)
                 return controller
             } else {
-                notebook!.pages.append("")
-                let controller = PageViewController(pageIndex: index + 1, html: notebook!.pages[index + 1])
+                notebook!.pages.append("<style>body {background-color: black; color: white; }h1 {background-color: black; color: white; }p {background-color: black; color: white; }</style><body><h1>Заголовок</h1><p> Текст</p></body>")
+                let controller = PageController(pageIndex: index + 1, notebook: notebook!)
                 return controller
             }
         }
