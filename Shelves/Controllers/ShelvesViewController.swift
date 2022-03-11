@@ -17,6 +17,7 @@ class ShelvesViewController: UIViewController {
     var shelvesView: ShelvesView?
     var notebookController: NotebookController?
     let pageViewController = UIPageViewController(transitionStyle: .pageCurl, navigationOrientation: .horizontal, options: nil)
+    var newNotebookNumber: Int = 1
     
     func setupView() {
         let shelvesView = ShelvesView()
@@ -35,15 +36,55 @@ class ShelvesViewController: UIViewController {
         shelvesView?.tableView?.register(ShelfTableViewCell.self, forCellReuseIdentifier: "ShelfTableViewCell")
     }
     
+    private func addNewNotebooks() {
+        var hasNewOnShelves = [Bool](repeating: false, count: shelvesCount)
+        var isNewShelve = [Bool](repeating: true, count: shelvesCount)
+        for i in 0..<notebooks.count {
+            if let number = Int(notebooks[i].name) {
+                if (number >= newNotebookNumber) {
+                    newNotebookNumber = number + 1
+                }
+            }
+            if (notebooks[i].isNew) {
+                hasNewOnShelves[notebooks[i].shelf] = true
+            } else {
+                isNewShelve[notebooks[i].shelf] = false
+            }
+        }
+        for i in 0..<shelvesCount {
+            if (!hasNewOnShelves[i]) {
+                let newNotebook = Notebook()
+                newNotebook.shelf = i
+                newNotebook.name = String(newNotebookNumber)
+                newNotebookNumber += 1
+                notebooks.append(newNotebook)
+            }
+        }
+        // Create new shelve if needed.
+        var newShelves = 0
+        for i in 0..<shelvesCount {
+            if (isNewShelve[i]) {
+                newShelves += 1
+            }
+        }
+        if (newShelves == 0) {
+            let newNotebook = Notebook()
+            newNotebook.shelf = shelvesCount
+            newNotebook.name = String(newNotebookNumber)
+            newNotebookNumber += 1
+            notebooks.append(newNotebook)
+            shelvesCount += 1
+        }
+    }
+    
     func loadNotebooks() {
-        let fileManager = FileManager.default
         if let documentDirectory = FileManager.default.urls(for: .documentDirectory,
                                                             in: .userDomainMask).first {
-            let enumerator:FileManager.DirectoryEnumerator = fileManager.enumerator(atPath: documentDirectory.path)!
-            while let element = enumerator.nextObject() as? String {
+            let files = FileManager.default.urls(for: .documentDirectory, skipsHiddenFiles: true)
+            for element in files! {
                 do {
-                    if element.hasSuffix("shelves") { // checks the extension
-                        let jsonString = try String(contentsOf: documentDirectory.appendingPathComponent(element), encoding: .utf8)
+                    if element.lastPathComponent.hasSuffix("shelves") { // checks the extension
+                        let jsonString = try String(contentsOf: documentDirectory.appendingPathComponent(element.lastPathComponent), encoding: .utf8)
                         let notebook = try JSONDecoder().decode(Notebook.self, from: jsonString.data(using: .utf8)!)
                             notebooks.append(notebook)
                         if (notebook.shelf + 2 > shelvesCount) {
@@ -51,10 +92,11 @@ class ShelvesViewController: UIViewController {
                         }
                     }
                 } catch {
-                    print("Can't read " + element + " " + error.localizedDescription)
+                    print("Can't read " + element.lastPathComponent + " " + error.localizedDescription)
                 }
             }
         }
+        addNewNotebooks()
     }
 
     override func viewDidLoad() {
@@ -63,6 +105,13 @@ class ShelvesViewController: UIViewController {
         loadNotebooks()
         setupView()
         setupTableView()
+        self.navigationItem.title = "Заметки"
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        addNewNotebooks()
+        shelvesView?.tableView?.reloadData()
     }
 
 }
@@ -89,6 +138,36 @@ extension ShelvesViewController: UITableViewDelegate, UITableViewDataSource {
 }
 
 extension ShelvesViewController: ViewControllerRouter {
+    
+    func deleteNotebook(notebook: Notebook) {
+        let deleteAlert = UIAlertController(title: "Удаление заметки", message: "Удалить заметку?", preferredStyle: UIAlertController.Style.alert)
+
+        deleteAlert.addAction(UIAlertAction(title: "Да", style: .default, handler: { (action: UIAlertAction!) in
+            do {
+                if let documentDirectory = FileManager.default.urls(for: .documentDirectory,
+                                                                    in: .userDomainMask).first {
+                    try FileManager.default.removeItem(at: documentDirectory.appendingPathComponent(notebook.name + ".shelves"))
+                    for i in 0..<self.notebooks.count {
+                        if (self.notebooks[i].name == notebook.name) {
+                            self.notebooks.remove(at: i)
+                            self.addNewNotebooks()
+                            self.shelvesView?.tableView?.reloadData()
+                            return
+                        }
+                    }
+                }
+            } catch {
+                print("Can't delete file " + notebook.name)
+            }
+        }))
+
+        deleteAlert.addAction(UIAlertAction(title: "Нет", style: .cancel, handler: { (action: UIAlertAction!) in
+            // Do nothing.
+        }))
+
+        present(deleteAlert, animated: true, completion: nil)
+    }
+    
     func openNotebook(notebook: Notebook) {
         let dataSource = NotebookController(notebook: notebook)
         pageViewController.dataSource = dataSource

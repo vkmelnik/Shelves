@@ -9,4 +9,5 @@ import UIKit
 
 protocol ViewControllerRouter {
     func openNotebook(notebook: Notebook)
+    func deleteNotebook(notebook: Notebook)
 }

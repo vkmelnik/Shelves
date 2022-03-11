@@ -30,6 +30,7 @@ class PageController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         notebook.pages[pageIndex] = page?.editor?.html ?? ""
         do {
+            notebook.isNew = false
             let jsonEncoder = JSONEncoder()
             let jsonData = try jsonEncoder.encode(notebook)
             let json = String(data: jsonData, encoding: .utf8)

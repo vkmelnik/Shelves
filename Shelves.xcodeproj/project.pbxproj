@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1206A08027DB9805009F3983 /* FileManagerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1206A07F27DB9805009F3983 /* FileManagerExtension.swift */; };
 		1233F5C627C925E100E90FCF /* ShelvesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1233F5C527C925E100E90FCF /* ShelvesView.swift */; };
 		1233F5C827C9285500E90FCF /* ShelfTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1233F5C727C9285500E90FCF /* ShelfTableViewCell.swift */; };
 		12C7788227D4CC9A005CCC88 /* Page.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C7788127D4CC9A005CCC88 /* Page.swift */; };
@@ -27,6 +28,7 @@
 
 /* Begin PBXFileReference section */
 		09970FED7D711108FCAE319A /* Pods-Shelves.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Shelves.release.xcconfig"; path = "Target Support Files/Pods-Shelves/Pods-Shelves.release.xcconfig"; sourceTree = "<group>"; };
+		1206A07F27DB9805009F3983 /* FileManagerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileManagerExtension.swift; sourceTree = "<group>"; };
 		1233F5C527C925E100E90FCF /* ShelvesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShelvesView.swift; sourceTree = "<group>"; };
 		1233F5C727C9285500E90FCF /* ShelfTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShelfTableViewCell.swift; sourceTree = "<group>"; };
 		12C7788127D4CC9A005CCC88 /* Page.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Page.swift; sourceTree = "<group>"; };
@@ -135,6 +137,7 @@
 				12F354FD275228330091057B /* Assets.xcassets */,
 				12F354FF275228330091057B /* LaunchScreen.storyboard */,
 				12F35502275228330091057B /* Info.plist */,
+				1206A07F27DB9805009F3983 /* FileManagerExtension.swift */,
 			);
 			path = Shelves;
 			sourceTree = "<group>";
@@ -288,6 +291,7 @@
 				12C7788227D4CC9A005CCC88 /* Page.swift in Sources */,
 				12C7788C27D93185005CCC88 /* NotebookController.swift in Sources */,
 				12C7788727D4CF7B005CCC88 /* ViewControllerRouter.swift in Sources */,
+				1206A08027DB9805009F3983 /* FileManagerExtension.swift in Sources */,
 				1233F5C627C925E100E90FCF /* ShelvesView.swift in Sources */,
 				12F354F7275228310091057B /* SceneDelegate.swift in Sources */,
 				12C7788A27D930D5005CCC88 /* Notebook.swift in Sources */,
