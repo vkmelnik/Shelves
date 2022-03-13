@@ -14,7 +14,7 @@ class Page: UIView {
     
     func setupUI() {
         let editor = RichEditorView(frame: self.bounds)
-        editor.html = "<style>body {background-color: black; color: white; }h1 {background-color: black; color: white; }p {background-color: black; color: white; }</style><body><h1>Заголовок</h1><p> Текст</p></body>"
+        editor.html = "<style>body {background-color: black; color: white; }h1 {background-color: black; color: white; }p {background-color: black; color: white; }</style><body></body>"
         self.addSubview(editor)
         editor.pinLeft(to: self.leadingAnchor, 5)
         editor.pinRight(to: self.trailingAnchor, 5)

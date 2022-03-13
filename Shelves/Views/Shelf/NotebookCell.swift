@@ -106,7 +106,7 @@ class NotebookCell: UICollectionViewCell {
     @objc
     func changeTitle() {
         if (title!.text!.trimmingCharacters(in: .whitespaces).count > 0) {
-            notebook?.name = title!.text!.trimmingCharacters(in: .whitespaces)
+            router?.renameNotebook(notebook: notebook!, newName: title!.text!.trimmingCharacters(in: .whitespaces))
         } else {
             title?.text = notebook?.name
         }

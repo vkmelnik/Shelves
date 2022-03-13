@@ -138,6 +138,18 @@ extension ShelvesViewController: UITableViewDelegate, UITableViewDataSource {
 }
 
 extension ShelvesViewController: ViewControllerRouter {
+    func renameNotebook(notebook: Notebook, newName: String) {
+        do {
+            if let documentDirectory = FileManager.default.urls(for: .documentDirectory,
+                                                                in: .userDomainMask).first {
+                try FileManager.default.moveItem(at: documentDirectory.appendingPathComponent(notebook.name + ".shelves"), to: documentDirectory.appendingPathComponent(newName + ".shelves"))
+                notebook.name = newName
+            }
+        } catch {
+            print("Can't rename file \(notebook.name) to \(newName)")
+        }
+    }
+    
     
     func deleteNotebook(notebook: Notebook) {
         let deleteAlert = UIAlertController(title: "Удаление заметки", message: "Удалить заметку?", preferredStyle: UIAlertController.Style.alert)

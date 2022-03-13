@@ -33,7 +33,7 @@ class NotebookController: NSObject, UIPageViewControllerDelegate, UIPageViewCont
                 let controller = PageController(pageIndex: index + 1, notebook: notebook!)
                 return controller
             } else {
-                notebook!.pages.append("<style>body {background-color: black; color: white; }h1 {background-color: black; color: white; }p {background-color: black; color: white; }</style><body><h1>Заголовок</h1><p> Текст</p></body>")
+                notebook!.pages.append("<style>body {background-color: black; color: white; }h1 {background-color: black; color: white; }p {background-color: black; color: white; }</style><body></body>")
                 let controller = PageController(pageIndex: index + 1, notebook: notebook!)
                 return controller
             }
