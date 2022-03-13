@@ -25,6 +25,10 @@ class ShelfTableViewCell: UITableViewCell {
         super.init(coder: aDecoder)
     }
     
+    func setShelfNumber(number: Int) {
+        shelf?.shelfNumber = number
+    }
+    
     func setupCell() {
         let shelf = ShelfView()
         contentView.addSubview(shelf)

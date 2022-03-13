@@ -41,4 +41,23 @@ class NotebookController: NSObject, UIPageViewControllerDelegate, UIPageViewCont
         return nil
     }
     
+    static func saveNotebook(notebook: Notebook) {
+        do {
+            notebook.isNew = false
+            let jsonEncoder = JSONEncoder()
+            let jsonData = try jsonEncoder.encode(notebook)
+            let json = String(data: jsonData, encoding: .utf8)
+
+            if let documentDirectory = FileManager.default.urls(for: .documentDirectory,
+                                                                in: .userDomainMask).first {
+                let pathWithFilename = documentDirectory.appendingPathComponent(notebook.name + ".shelves")
+                try json!.write(to: pathWithFilename,
+                                    atomically: true,
+                                    encoding: .utf8)
+            }
+        } catch {
+            print("Unable to save notebook.")
+        }
+    }
+    
 }

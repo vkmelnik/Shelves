@@ -29,22 +29,7 @@ class PageController: UIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         notebook.pages[pageIndex] = page?.editor?.html ?? ""
-        do {
-            notebook.isNew = false
-            let jsonEncoder = JSONEncoder()
-            let jsonData = try jsonEncoder.encode(notebook)
-            let json = String(data: jsonData, encoding: .utf8)
-
-            if let documentDirectory = FileManager.default.urls(for: .documentDirectory,
-                                                                in: .userDomainMask).first {
-                let pathWithFilename = documentDirectory.appendingPathComponent(notebook.name + ".shelves")
-                try json!.write(to: pathWithFilename,
-                                    atomically: true,
-                                    encoding: .utf8)
-            }
-        } catch {
-            print("Unable to save notebook.")
-        }
+        NotebookController.saveNotebook(notebook: notebook)
     }
     
     convenience init(pageIndex: Int, notebook: Notebook) {

@@ -13,6 +13,7 @@ class ShelfView: UIView {
     var notebooksCollection: UICollectionView?
     var separator: UIView?
     var notebooks: [Notebook] = []
+    var shelfNumber: Int = 0
     
     var router: ViewControllerRouter?
     
@@ -34,6 +35,9 @@ class ShelfView: UIView {
         notebooksCollection.setHeight(180)
         notebooksCollection.delegate = self
         notebooksCollection.dataSource = self
+        notebooksCollection.dragDelegate = self
+        notebooksCollection.dropDelegate = self
+        notebooksCollection.dragInteractionEnabled = true
         notebooksCollection.register(NotebookCell.self, forCellWithReuseIdentifier: "notebookCell")
         
         self.notebooksCollection = notebooksCollection
@@ -93,5 +97,24 @@ extension ShelfView: UICollectionViewDelegate, UICollectionViewDataSource {
         return cell ?? UICollectionViewCell()
     }
     
+}
+
+extension ShelfView: UICollectionViewDragDelegate, UICollectionViewDropDelegate {
+    func collectionView(_ collectionView: UICollectionView, performDropWith coordinator: UICollectionViewDropCoordinator) {
+        if let notebook = DragedNotebook.shared.draggedNotebook {
+            router?.moveNotebook(notebook: notebook, shelf: shelfNumber)
+            DragedNotebook.shared.draggedNotebook = nil
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
+        if let cell = collectionView.cellForItem(at: indexPath) as? NotebookCell {
+            // Store notebook in shared container.
+            DragedNotebook.shared.draggedNotebook = cell.notebook
+            // Return something, value will not be used, DragedNotebook is used instead.
+            return [UIDragItem(itemProvider: NSItemProvider(object: NSString()))]
+        }
+        return []
+    }
     
 }

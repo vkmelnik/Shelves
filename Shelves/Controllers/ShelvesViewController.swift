@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import UniformTypeIdentifiers
 
 /*
  ShelvesView controller.
@@ -28,6 +29,13 @@ class ShelvesViewController: UIViewController {
         shelvesView.pinRight(to: view.trailingAnchor, 0)
         shelvesView.configure()
         self.shelvesView = shelvesView
+        
+        let binView = BinView(frame: CGRect(x: 0, y: 0, width: 120, height: 120), dropDelegate: self)
+        view.addSubview(binView)
+        binView.pinRight(to: view.trailingAnchor)
+        binView.pinBottom(to: view.bottomAnchor)
+        binView.setWidth(40)
+        binView.setHeight(40)
     }
     
     func setupTableView() {
@@ -123,6 +131,7 @@ extension ShelvesViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = ShelfTableViewCell()
+        cell.setShelfNumber(number: indexPath.item)
         for notebook in notebooks {
             if (notebook.shelf == indexPath.item) {
                 cell.putNotebook(notebook: notebook)
@@ -138,15 +147,23 @@ extension ShelvesViewController: UITableViewDelegate, UITableViewDataSource {
 }
 
 extension ShelvesViewController: ViewControllerRouter {
+    func moveNotebook(notebook: Notebook, shelf: Int) {
+        notebook.shelf = shelf
+        NotebookController.saveNotebook(notebook: notebook)
+        addNewNotebooks()
+        self.shelvesView?.tableView?.reloadData()
+    }
+    
     func renameNotebook(notebook: Notebook, newName: String) {
         do {
             if let documentDirectory = FileManager.default.urls(for: .documentDirectory,
                                                                 in: .userDomainMask).first {
-                try FileManager.default.moveItem(at: documentDirectory.appendingPathComponent(notebook.name + ".shelves"), to: documentDirectory.appendingPathComponent(newName + ".shelves"))
+                let oldName = notebook.name
                 notebook.name = newName
+                try FileManager.default.moveItem(at: documentDirectory.appendingPathComponent(oldName + ".shelves"), to: documentDirectory.appendingPathComponent(newName + ".shelves"))
             }
         } catch {
-            print("Can't rename file \(notebook.name) to \(newName)")
+            print("Can't rename file \(notebook.name) to \(newName) \(error)")
         }
     }
     
@@ -169,7 +186,7 @@ extension ShelvesViewController: ViewControllerRouter {
                     }
                 }
             } catch {
-                print("Can't delete file " + notebook.name)
+                print("Can't delete file " + notebook.name + " \(error)")
             }
         }))
 
@@ -188,6 +205,25 @@ extension ShelvesViewController: ViewControllerRouter {
         let controller = PageController(pageIndex: 0, notebook: notebook)
         pageViewController.setViewControllers([controller], direction: .forward, animated: true, completion: nil)
         self.navigationController?.pushViewController(pageViewController, animated: false)
+    }
+    
+}
+
+extension ShelvesViewController: UIDropInteractionDelegate {
+    func dropInteraction(_ interaction: UIDropInteraction, performDrop session: UIDropSession) {
+        if let notebook = DragedNotebook.shared.draggedNotebook {
+            deleteNotebook(notebook: notebook)
+            DragedNotebook.shared.draggedNotebook = nil
+        }
+    }
+    
+    func dropInteraction(_ interaction: UIDropInteraction, sessionDidUpdate session: UIDropSession) -> UIDropProposal {
+            // Propose to the system to copy the item from the source app
+        return UIDropProposal(operation: .move)
+    }
+    
+    func dropInteraction(_ interaction: UIDropInteraction, canHandle session: UIDropSession) -> Bool {
+        return session.canLoadObjects(ofClass: NSString.self)
     }
     
 }

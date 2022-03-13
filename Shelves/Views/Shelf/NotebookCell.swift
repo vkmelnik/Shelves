@@ -71,10 +71,8 @@ class NotebookCell: UICollectionViewCell {
     
     func setupButton() {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector (onButtonPressed))
-        let longGesture = UILongPressGestureRecognizer(target: self, action: #selector(onButtonLongPressed))
         tapGesture.numberOfTapsRequired = 1
         notebookIcon?.addGestureRecognizer(tapGesture)
-        notebookIcon?.addGestureRecognizer(longGesture)
     }
     
     func setColor(color: CGColor) {
@@ -115,11 +113,6 @@ class NotebookCell: UICollectionViewCell {
     @objc
     func onButtonPressed() {
         router?.openNotebook(notebook: notebook!)
-    }
-    
-    @objc
-    func onButtonLongPressed() {
-        router?.deleteNotebook(notebook: notebook!)
     }
     
     func setupNotebook(notebook: Notebook) {
