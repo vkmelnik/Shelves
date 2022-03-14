@@ -77,7 +77,7 @@ class PageController: UIViewController {
     func insertImage(editor: RichEditorView, src: String, width: Int? = nil, height: Int? = nil, alt: String = "") {
         let finalWidth = width == nil ? "auto" : "\(width!)px"
         let finalHeight = height == nil ? "auto" : "\(height!)px"
-        editor.html += "<img src=\"\(src)\" alt=\"\(alt)\" style=\"width: \(finalWidth); height: \(finalHeight); max-width: 100%;\" /><br />"
+        editor.html += "<img src=\"\(src)\" alt=\"\(alt)\" style=\"width: \(finalWidth); height: \(finalHeight); max-width: 90%;\" /><br />"
         editor.runJS("RE.focus()") // Move cursor to a newly added line
     }
     
