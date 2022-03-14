@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import RichEditorView
 
 class PageController: UIViewController {
     
@@ -73,6 +74,13 @@ class PageController: UIViewController {
         NotebookController.saveNotebook(notebook: notebook)
     }
     
+    func insertImage(editor: RichEditorView, src: String, width: Int? = nil, height: Int? = nil, alt: String = "") {
+        let finalWidth = width == nil ? "auto" : "\(width!)px"
+        let finalHeight = height == nil ? "auto" : "\(height!)px"
+        editor.html += "<img src=\"\(src)\" alt=\"\(alt)\" style=\"width: \(finalWidth); height: \(finalHeight); max-width: 100%;\" /><br />"
+        editor.runJS("RE.focus()") // Move cursor to a newly added line
+    }
+    
     convenience init(pageIndex: Int, notebook: Notebook, parent: UIPageViewController?) {
         self.init()
         self.pageIndex = pageIndex
@@ -110,7 +118,7 @@ extension PageController: UIImagePickerControllerDelegate & UINavigationControll
             }
             let imagePath = folderURL?.appendingPathComponent("Image_\(image.hash).png")
             try image.pngData()?.write(to: imagePath!)
-            page?.editor?.insertImage(imagePath!.absoluteString, alt: "<Image>")
+            insertImage(editor: (page?.editor)!, src: imagePath!.absoluteString)
         } catch {
             print(error)
         }

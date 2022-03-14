@@ -75,7 +75,7 @@ extension CoverViewController: UIColorPickerViewControllerDelegate {
 
 extension CoverViewController: ViewControllerRouter {
     func openNotebook(notebook: Notebook) {
-        return
+        changeCoverColor()
     }
     
     func deleteNotebook(notebook: Notebook) {

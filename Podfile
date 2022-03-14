@@ -6,5 +6,5 @@ target 'Shelves' do
   use_frameworks!
 
   # Pods for Shelves
-  pod 'RichEditorView'
+  pod 'RichEditorView', :git => 'https://github.com/T-Pro/RichEditorView.git', :branch => 'master'
 end

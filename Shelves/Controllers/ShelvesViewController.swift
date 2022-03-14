@@ -244,7 +244,7 @@ extension ShelvesViewController: UIDropInteractionDelegate {
             if let notebook = DragedNotebook.shared.draggedNotebook {
                 let coverViewController = CoverViewController(notebook: notebook)
                 DragedNotebook.shared.draggedNotebook = nil
-                self.present(coverViewController, animated: true, completion: { [self]() -> () in shelvesView?.tableView?.reloadData()})
+                self.navigationController?.pushViewController(coverViewController, animated: true)
             }
         }
     }
