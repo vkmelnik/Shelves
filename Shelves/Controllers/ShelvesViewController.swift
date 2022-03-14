@@ -22,6 +22,8 @@ class ShelvesViewController: UIViewController {
     let pageViewController = UIPageViewController(transitionStyle: .pageCurl, navigationOrientation: .horizontal, options: nil)
     var newNotebookNumber: Int = 1
     
+    var doneButton: UIBarButtonItem?
+    
     func setupView() {
         let shelvesView = ShelvesView()
         view.addSubview(shelvesView)
@@ -126,12 +128,34 @@ class ShelvesViewController: UIViewController {
         setupView()
         setupTableView()
         self.navigationItem.title = "Заметки"
+        
+        let doneButton = UIBarButtonItem(title: "Готово", style: .plain, target: self, action: #selector(doneEditing))
+        self.doneButton = doneButton
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+          
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    @objc
+    func doneEditing() {
+        view.endEditing(true)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         addNewNotebooks()
         shelvesView?.tableView?.reloadData()
+    }
+    
+    @objc
+    func keyboardWillShow(notification: NSNotification) {
+        navigationItem.setRightBarButton(doneButton, animated: false)
+    }
+    
+    @objc
+    func keyboardWillHide(notification: NSNotification) {
+        navigationItem.setRightBarButton(nil, animated: false)
     }
 
 }

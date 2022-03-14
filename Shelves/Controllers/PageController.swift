@@ -15,9 +15,10 @@ class PageController: UIViewController {
     public var pageIndex: Int = 0
     private var notebook: Notebook = Notebook()
     weak var parentPageViewController: UIPageViewController?
+    var cameraButton: UIBarButtonItem?
+    var doneButton: UIBarButtonItem?
     
     func setupPage() {
-        parentPageViewController?.navigationItem.setRightBarButton(UIBarButtonItem(image: UIImage(systemName: "camera"), style: .plain, target: self, action: #selector(addImage)), animated: false)
         
         let page = Page()
         page.setHtml(html: notebook.pages[pageIndex])
@@ -32,12 +33,27 @@ class PageController: UIViewController {
         navigationController?.navigationBar.prefersLargeTitles = false
         picker.delegate = self
         setupPage()
+        
+        let cameraButton = UIBarButtonItem(image: UIImage(systemName: "camera"), style: .plain, target: self, action: #selector(addImage))
+        parentPageViewController?.navigationItem.setRightBarButton(cameraButton, animated: false)
+        self.cameraButton = cameraButton
+        let doneButton = UIBarButtonItem(title: "Готово", style: .plain, target: self, action: #selector(doneEditing))
+        self.doneButton = doneButton
+        
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+          
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        let button = UIBarButtonItem(image: UIImage(systemName: "camera"), style: .plain, target: self, action: #selector(addImage))
-        navigationItem.setRightBarButton(button, animated: false)
+    @objc
+    func keyboardWillShow(notification: NSNotification) {
+        parentPageViewController?.navigationItem.setRightBarButton(doneButton, animated: false)
+    }
+    
+    @objc
+    func keyboardWillHide(notification: NSNotification) {
+        parentPageViewController?.navigationItem.setRightBarButton(cameraButton, animated: false)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -47,6 +63,11 @@ class PageController: UIViewController {
     @objc
     func addImage() {
         openGallary()
+    }
+    
+    @objc
+    func doneEditing() {
+        view.endEditing(true)
     }
     
     func openGallary() {
