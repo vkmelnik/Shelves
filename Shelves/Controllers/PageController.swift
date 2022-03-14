@@ -57,7 +57,7 @@ class PageController: UIViewController {
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        save(page?.editor?.html)
+        save(page?.editor?.contentHTML)
     }
     
     @objc

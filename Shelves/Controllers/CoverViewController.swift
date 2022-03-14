@@ -6,15 +6,37 @@
 //
 
 import UIKit
+import PDFKit
+import RichEditorView
 
 class CoverViewController: UIViewController {
+    
+    var pdfRenderer: RichEditorView?
     
     var notebook: Notebook?
     var cover: CoverView?
     let picker = UIColorPickerViewController()
+    
+    func setupRenderer() {
+        let pdfRenderer = RichEditorView()
+        pdfRenderer.backgroundColor = .black
+        pdfRenderer.webView.backgroundColor = .black
+        pdfRenderer.webView.isOpaque = false
+        pdfRenderer.html = "";
+        view.addSubview(pdfRenderer)
+        pdfRenderer.pinLeft(to: view.leadingAnchor, 5)
+        pdfRenderer.pinRight(to: view.trailingAnchor, 5)
+        pdfRenderer.pinBottom(to: view.safeAreaLayoutGuide.bottomAnchor, 5)
+        pdfRenderer.pinTop(to: view.safeAreaLayoutGuide.topAnchor, 5)
+        pdfRenderer.alpha = 0
+              
+        self.pdfRenderer = pdfRenderer
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        setupRenderer()
         
         picker.delegate = self
         view.backgroundColor = .black
@@ -48,6 +70,27 @@ class CoverViewController: UIViewController {
 }
 
 extension CoverViewController: CoverViewControllerProtocol {
+    func saveAsPdf() {
+        do {
+            let pdf: PDFDocument = PDFDocument()
+            var pagesDone: Int = 0
+            for page in notebook!.pages {
+                pdfRenderer!.html = page
+                let renderedPage = pdfRenderer?.webView.exportAsPdfFromWebView()
+                pdf.insert((PDFDocument(data: Data(renderedPage!))?.page(at: 0))!, at: pagesDone)
+                pagesDone += 1
+            }
+            
+            let data = pdf.dataRepresentation()!
+            let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+            let docDirectoryPath = paths[0]
+            let pdfPath = docDirectoryPath.appendingPathComponent("\(notebook!.name).pdf")
+            try data.write(to: pdfPath)
+        } catch {
+            print("PDF creating error " + error.localizedDescription)
+        }
+    }
+    
     func changeCoverColor() {
         picker.selectedColor = UIColor(cgColor: CGColor.colorFrom(hex: notebook!.bookColor ?? "#888888") ?? CGColor(gray: 0.8, alpha: 1))
 

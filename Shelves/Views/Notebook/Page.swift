@@ -29,7 +29,6 @@ class Page: UIView {
     
     public func setHtml(html: String) {
         editor?.html = html;
-        editor?.setEditorFontColor(.blue)
         editor?.setEditorBackgroundColor(.black)
     }
 

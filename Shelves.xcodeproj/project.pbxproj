@@ -16,6 +16,7 @@
 		1207003D27DF90D300136BED /* CoverViewControllerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1207003C27DF90D300136BED /* CoverViewControllerProtocol.swift */; };
 		1207003F27DF939700136BED /* CoverChangeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1207003E27DF939700136BED /* CoverChangeView.swift */; };
 		1207004127DF97A700136BED /* NotebookView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1207004027DF97A700136BED /* NotebookView.swift */; };
+		1207004427DFD1DB00136BED /* WebViewToPdfExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1207004327DFD1DB00136BED /* WebViewToPdfExtension.swift */; };
 		1233F5C627C925E100E90FCF /* ShelvesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1233F5C527C925E100E90FCF /* ShelvesView.swift */; };
 		1233F5C827C9285500E90FCF /* ShelfTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1233F5C727C9285500E90FCF /* ShelfTableViewCell.swift */; };
 		12C7788227D4CC9A005CCC88 /* Page.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C7788127D4CC9A005CCC88 /* Page.swift */; };
@@ -45,6 +46,7 @@
 		1207003C27DF90D300136BED /* CoverViewControllerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoverViewControllerProtocol.swift; sourceTree = "<group>"; };
 		1207003E27DF939700136BED /* CoverChangeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoverChangeView.swift; sourceTree = "<group>"; };
 		1207004027DF97A700136BED /* NotebookView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotebookView.swift; sourceTree = "<group>"; };
+		1207004327DFD1DB00136BED /* WebViewToPdfExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewToPdfExtension.swift; sourceTree = "<group>"; };
 		1233F5C527C925E100E90FCF /* ShelvesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShelvesView.swift; sourceTree = "<group>"; };
 		1233F5C727C9285500E90FCF /* ShelfTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShelfTableViewCell.swift; sourceTree = "<group>"; };
 		12C7788127D4CC9A005CCC88 /* Page.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Page.swift; sourceTree = "<group>"; };
@@ -78,6 +80,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1207004227DFD1C500136BED /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				1206A07F27DB9805009F3983 /* FileManagerExtension.swift */,
+				1207003627DF7ECD00136BED /* CGColorExtension.swift */,
+				1207004327DFD1DB00136BED /* WebViewToPdfExtension.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		1233F5C327C925B100E90FCF /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -149,6 +161,7 @@
 		12F354F3275228310091057B /* Shelves */ = {
 			isa = PBXGroup;
 			children = (
+				1207004227DFD1C500136BED /* Extensions */,
 				12C7788827D930B4005CCC88 /* Models */,
 				12C7788527D4CF61005CCC88 /* Routers */,
 				1233F5C427C925BF00E90FCF /* Controllers */,
@@ -159,8 +172,6 @@
 				12F354FD275228330091057B /* Assets.xcassets */,
 				12F354FF275228330091057B /* LaunchScreen.storyboard */,
 				12F35502275228330091057B /* Info.plist */,
-				1206A07F27DB9805009F3983 /* FileManagerExtension.swift */,
-				1207003627DF7ECD00136BED /* CGColorExtension.swift */,
 			);
 			path = Shelves;
 			sourceTree = "<group>";
@@ -321,6 +332,7 @@
 				1207003127DDF0E600136BED /* DragedNotebook.swift in Sources */,
 				1207003B27DF8EBB00136BED /* CoverViewController.swift in Sources */,
 				1206A08027DB9805009F3983 /* FileManagerExtension.swift in Sources */,
+				1207004427DFD1DB00136BED /* WebViewToPdfExtension.swift in Sources */,
 				1233F5C627C925E100E90FCF /* ShelvesView.swift in Sources */,
 				1207003327DDF64900136BED /* BinView.swift in Sources */,
 				1207004127DF97A700136BED /* NotebookView.swift in Sources */,

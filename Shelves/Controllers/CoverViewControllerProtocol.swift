@@ -9,4 +9,5 @@ import Foundation
 
 protocol CoverViewControllerProtocol {
     func changeCoverColor()
+    func saveAsPdf()
 }
