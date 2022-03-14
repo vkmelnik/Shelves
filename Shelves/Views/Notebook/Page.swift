@@ -13,22 +13,24 @@ class Page: UIView {
     var editor: RichEditorView?
     
     func setupUI() {
-        let editor = RichEditorView(frame: self.bounds)
-        editor.html = "<style>body {background-color: black; color: white; }h1 {background-color: black; color: white; }p {background-color: black; color: white; }</style><body></body>"
+        let editor = RichEditorView()
+        editor.backgroundColor = .black
+        editor.webView.backgroundColor = .black
+        editor.webView.isOpaque = false
+        editor.html = "";
         self.addSubview(editor)
         editor.pinLeft(to: self.leadingAnchor, 5)
         editor.pinRight(to: self.trailingAnchor, 5)
         editor.pinBottom(to: self.safeAreaLayoutGuide.bottomAnchor, 5)
         editor.pinTop(to: self.safeAreaLayoutGuide.topAnchor, 5)
-        editor.backgroundColor = .black
-        editor.webView.backgroundColor = .black
-        editor.setTextColor(.white)
               
         self.editor = editor
     }
     
     public func setHtml(html: String) {
-        editor?.html = html
+        editor?.html = html;
+        editor?.setEditorFontColor(.blue)
+        editor?.setEditorBackgroundColor(.black)
     }
 
     override init(frame: CGRect) {

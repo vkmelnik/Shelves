@@ -16,6 +16,8 @@ class ShelvesViewController: UIViewController {
     var notebooks: [Notebook] = []
     var shelvesCount = 1
     var shelvesView: ShelvesView?
+    var binView: BinView?
+    var coverChangeView: CoverChangeView?
     var notebookController: NotebookController?
     let pageViewController = UIPageViewController(transitionStyle: .pageCurl, navigationOrientation: .horizontal, options: nil)
     var newNotebookNumber: Int = 1
@@ -36,6 +38,15 @@ class ShelvesViewController: UIViewController {
         binView.pinBottom(to: view.bottomAnchor)
         binView.setWidth(40)
         binView.setHeight(40)
+        self.binView = binView
+        
+        let coverChangeView = CoverChangeView(frame: CGRect(x: 0, y: 0, width: 120, height: 120), dropDelegate: self)
+        view.addSubview(coverChangeView)
+        coverChangeView.pinRight(to: binView.leadingAnchor, 10)
+        coverChangeView.pinBottom(to: view.bottomAnchor)
+        coverChangeView.setWidth(40)
+        coverChangeView.setHeight(40)
+        self.coverChangeView = coverChangeView
     }
     
     func setupTableView() {
@@ -110,6 +121,7 @@ class ShelvesViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        overrideUserInterfaceStyle = .dark
         loadNotebooks()
         setupView()
         setupTableView()
@@ -161,6 +173,12 @@ extension ShelvesViewController: ViewControllerRouter {
                 let oldName = notebook.name
                 notebook.name = newName
                 try FileManager.default.moveItem(at: documentDirectory.appendingPathComponent(oldName + ".shelves"), to: documentDirectory.appendingPathComponent(newName + ".shelves"))
+                // Rename images folder.
+                let folderURL = documentDirectory.appendingPathComponent("\(oldName)")
+                let folderExists = (try? folderURL.checkResourceIsReachable()) ?? false
+                if !folderExists {
+                    try FileManager.default.moveItem(at: folderURL, to: documentDirectory.appendingPathComponent("\(newName)"))
+                }
             }
         } catch {
             print("Can't rename file \(notebook.name) to \(newName) \(error)")
@@ -184,6 +202,12 @@ extension ShelvesViewController: ViewControllerRouter {
                             return
                         }
                     }
+                    
+                    let folderURL = documentDirectory.appendingPathComponent("\(notebook.name)")
+                    let folderExists = (try? folderURL.checkResourceIsReachable()) ?? false
+                    if !folderExists {
+                        try FileManager.default.removeItem(at: folderURL)
+                    }
                 }
             } catch {
                 print("Can't delete file " + notebook.name + " \(error)")
@@ -202,18 +226,26 @@ extension ShelvesViewController: ViewControllerRouter {
         pageViewController.dataSource = dataSource
         pageViewController.delegate = dataSource
         self.notebookController = dataSource
-        let controller = PageController(pageIndex: 0, notebook: notebook)
+        let controller = PageController(pageIndex: 0, notebook: notebook, parent: pageViewController)
+        print(notebook.pages[0])
         pageViewController.setViewControllers([controller], direction: .forward, animated: true, completion: nil)
         self.navigationController?.pushViewController(pageViewController, animated: false)
     }
-    
 }
 
 extension ShelvesViewController: UIDropInteractionDelegate {
     func dropInteraction(_ interaction: UIDropInteraction, performDrop session: UIDropSession) {
-        if let notebook = DragedNotebook.shared.draggedNotebook {
-            deleteNotebook(notebook: notebook)
-            DragedNotebook.shared.draggedNotebook = nil
+        if interaction.view == binView {
+            if let notebook = DragedNotebook.shared.draggedNotebook {
+                deleteNotebook(notebook: notebook)
+                DragedNotebook.shared.draggedNotebook = nil
+            }
+        } else if interaction.view == coverChangeView {
+            if let notebook = DragedNotebook.shared.draggedNotebook {
+                let coverViewController = CoverViewController(notebook: notebook)
+                DragedNotebook.shared.draggedNotebook = nil
+                self.present(coverViewController, animated: true, completion: { [self]() -> () in shelvesView?.tableView?.reloadData()})
+            }
         }
     }
     

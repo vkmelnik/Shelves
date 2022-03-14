@@ -6,6 +6,5 @@ target 'Shelves' do
   use_frameworks!
 
   # Pods for Shelves
-  pod "RichEditorView"
-
+  pod 'RichEditorView'
 end

@@ -94,6 +94,9 @@ extension ShelfView: UICollectionViewDelegate, UICollectionViewDataSource {
         ) as? NotebookCell
         cell?.setupNotebook(notebook: notebooks[indexPath.item])
         cell?.setupRouter(router: router!)
+        if (notebooks[indexPath.item].isNew) {
+            cell?.setColor(color: CGColor(red: 0.1, green: 0.1, blue: 0.1, alpha: 0.9))
+        }
         return cell ?? UICollectionViewCell()
     }
     
@@ -110,7 +113,7 @@ extension ShelfView: UICollectionViewDragDelegate, UICollectionViewDropDelegate 
     func collectionView(_ collectionView: UICollectionView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
         if let cell = collectionView.cellForItem(at: indexPath) as? NotebookCell {
             // Store notebook in shared container.
-            DragedNotebook.shared.draggedNotebook = cell.notebook
+            DragedNotebook.shared.draggedNotebook = cell.getNotebook()
             // Return something, value will not be used, DragedNotebook is used instead.
             return [UIDragItem(itemProvider: NSItemProvider(object: NSString()))]
         }
