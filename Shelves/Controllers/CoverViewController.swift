@@ -75,7 +75,7 @@ extension CoverViewController: CoverViewControllerProtocol {
             let pdf: PDFDocument = PDFDocument()
             var pagesDone: Int = 0
             for page in notebook!.pages {
-                pdfRenderer!.html = page
+                pdfRenderer!.html = page // TODO: check if it is really loaded.
                 let renderedPage = pdfRenderer?.webView.exportAsPdfFromWebView()
                 pdf.insert((PDFDocument(data: Data(renderedPage!))?.page(at: 0))!, at: pagesDone)
                 pagesDone += 1
@@ -86,6 +86,10 @@ extension CoverViewController: CoverViewControllerProtocol {
             let docDirectoryPath = paths[0]
             let pdfPath = docDirectoryPath.appendingPathComponent("\(notebook!.name).pdf")
             try data.write(to: pdfPath)
+            
+            let alert = UIAlertController(title: "Готово", message: "Файл экспортирован в PDF", preferredStyle: UIAlertController.Style.alert)
+            alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
         } catch {
             print("PDF creating error " + error.localizedDescription)
         }
